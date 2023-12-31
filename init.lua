@@ -60,6 +60,14 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
+
+  {
+    "kdheepak/lazygit.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
@@ -304,7 +312,7 @@ vim.keymap.set('n', '<leader>qq', vim.cmd.qall)
 
 -- plugin related
 
-vim.keymap.set('n', '<leader>gs', vim.cmd.Git) -- fugitive
+--vim.keymap.set('n', '<leader>gs', vim.cmd.Git) -- fugitive
 
 vim.keymap.set('n', '<leader><Tab>', vim.cmd.bprevious)
 
@@ -314,6 +322,9 @@ vim.keymap.set('n', 'gk', '<Cmd>VertigoUp n<CR>', {silent = false})
 
 -- Neotree
 vim.keymap.set('n', '<leader>pv', '<Cmd>Neotree<CR>', {silent = true})
+
+-- Lazy Vim
+vim.keymap.set('n', '<leader>gs', '<Cmd>LazyGit<CR>', {silent = true})
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
