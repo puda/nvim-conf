@@ -5,6 +5,9 @@ vim.g.maplocalleader = ' '
 vim.o.scrolloff = 4
 vim.o.relativenumber = true
 
+-- colorscheme
+vim.opt.termguicolors = true
+
 -- sets normal mode to qwerty, while insert is dvorak
 -- vim.o.keymodel = 'dvorak' 
 
@@ -57,13 +60,31 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  },
 
+  -- TODO - learn
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    }
+  },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
+
       'saadparwaiz1/cmp_luasnip',
 
       -- Adds LSP completion capabilities
@@ -153,14 +174,23 @@ require('lazy').setup({
   },
 
   {
-    "craftzdog/solarized-osaka.nvim",
+    "Mofiqul/dracula.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'solarized-osaka'
-    end,
-    opts = {},
+       vim.cmd.colorscheme 'dracula'
+    end
   },
+
+  -- {
+  --   "craftzdog/solarized-osaka.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'solarized-osaka'
+  --   end,
+  --   opts = {},
+  -- },
 
   {
     -- Set lualine as statusline
@@ -169,7 +199,8 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'solarized-osaka',
+        -- theme = 'solarized-osaka',
+        theme = 'dracula',
         component_separators = '|',
         section_separators = '',
       },
@@ -199,21 +230,6 @@ require('lazy').setup({
       },
     },
   },
-
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "sindrets/diffview.nvim",        -- optional - Diff integration
-
-      -- Only one of these is needed, not both.
-      "nvim-telescope/telescope.nvim", -- optional
-      -- "ibhagwan/fzf-lua",              -- optional
-    },
-    config = true
-  },
-
-
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -277,9 +293,6 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
-
 -- [[ Basic Keymaps ]]
 
 -- [[ Puda maps ]]
@@ -291,13 +304,16 @@ vim.keymap.set('n', '<leader>qq', vim.cmd.qall)
 
 -- plugin related
 
-vim.keymap.set('n', '<leader>gs', vim.cmd.Neogit)
+vim.keymap.set('n', '<leader>gs', vim.cmd.Git) -- fugitive
 
 vim.keymap.set('n', '<leader><Tab>', vim.cmd.bprevious)
 
 -- Vertigo
 vim.keymap.set('n', 'gj', '<Cmd>VertigoDown n<CR>', {silent = false})
 vim.keymap.set('n', 'gk', '<Cmd>VertigoUp n<CR>', {silent = false})
+
+-- Neotree
+vim.keymap.set('n', '<leader>pv', '<Cmd>Neotree<CR>', {silent = true})
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -396,9 +412,11 @@ end
 vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/] in Open Files' })
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>pf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
--- vim.keymap.set('n', '<leader>bd', vim.cmd.bd)
-vim.keymap.set('n', '<leader>bd', vim.cmd.q)
+
+-- vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>bd', vim.cmd.bd)
+vim.keymap.set('n', '<leader>bq', vim.cmd.q)
+
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
