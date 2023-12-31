@@ -1,18 +1,15 @@
 -- Set <space> as the leader key
--- See `:help mapleader`
-
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
-
--- vim.o.keymodel = 'dvorak'
 
 vim.g.maplocalleader = ' '
 vim.o.scrolloff = 4
 vim.o.relativenumber = true
 
+-- sets normal mode to qwerty, while insert is dvorak
+-- vim.o.keymodel = 'dvorak' 
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -26,29 +23,23 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure plugins ]]
--- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
+-- lazy setup
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
+  -- First, some plugins that don't require any configuration
 
   -- Git related plugins
-  -- 'tpope/vim-fugitive',
-  -- 'tpope/vim-rhubarb',
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
 
   -- surround
   'tpope/vim-surround',
-
   'prendradjaja/vim-vertigo',
-    -- let g:Vertigo_homerow = 'aoeuidhtns'
+  -- let g:Vertigo_homerow = 'aoeuidhtns' -- for dvorak
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  'tpope/vim-sleuth', -- TODO - check if this is needed
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
+  -- NOTE: This is where plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
@@ -183,15 +174,6 @@ require('lazy').setup({
         section_separators = '',
       },
     },
-  },
-
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
-    opts = {},
   },
 
   -- "gc" to comment visual regions/lines
@@ -415,7 +397,8 @@ vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]e
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>pf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
-vim.keymap.set('n', '<leader>bd', vim.cmd.bd)
+-- vim.keymap.set('n', '<leader>bd', vim.cmd.bd)
+vim.keymap.set('n', '<leader>bd', vim.cmd.q)
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
