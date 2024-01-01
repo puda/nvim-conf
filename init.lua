@@ -66,6 +66,18 @@ require('lazy').setup({
   },
 
   {
+    'smoka7/hop.nvim',
+    version = "*",
+    opts = {},
+  },
+
+  -- {
+  --   'ggandor/leap.nvim',
+  --   version = "*",
+  --   opts = {},
+  -- },
+
+  {
     "kdheepak/lazygit.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -620,6 +632,29 @@ local servers = {
 
 -- Setup neovim lua configuration
 require('neodev').setup()
+
+-- -- Leap setup
+-- vim.keymap.set({'n', 'x', 'o'}, '<leader>jf', '<Plug>(leap-forward)')
+-- vim.keymap.set({'n', 'x', 'o'}, '<leader>jF', '<Plug>(leap-backward)')
+-- require('leap').create_default_mappings()
+
+
+-- Hop setup
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
+vim.keymap.set('n', 'f', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+end, {remap=true})
+vim.keymap.set('n', 'F', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+end, {remap=true})
+vim.keymap.set('n', 't', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+end, {remap=true})
+vim.keymap.set('n', 'T', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+end, {remap=true})
+
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
