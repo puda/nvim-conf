@@ -94,12 +94,12 @@ require('lazy').setup({
     }
   },
 
-  -- TODO - learn
   {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
     }
   },
   {
@@ -521,15 +521,15 @@ vim.defer_fn(function()
           ['[]'] = '@class.outer',
         },
       },
-      swap = {
-        enable = true,
-        swap_next = {
-          ['<leader>a'] = '@parameter.inner',
-        },
-        swap_previous = {
-          ['<leader>A'] = '@parameter.inner',
-        },
-      },
+      -- swap = {
+      --   enable = true,
+      --   swap_next = {
+      --     ['<leader>a'] = '@parameter.inner',
+      --   },
+      --   swap_previous = {
+      --     ['<leader>A'] = '@parameter.inner',
+      --   },
+      -- },
     },
   }
 end, 0)
@@ -655,6 +655,44 @@ require('neodev').setup()
 --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
 -- end, {remap=true})
 
+-- Harpoon setup
+-- REQUIRED
+local harpoon = require('harpoon')
+harpoon:setup({})
+
+vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
+vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<leader>jf", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<leader>jd", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<leader>js", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<leader>ja", function() harpoon:list():select(4) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<leader>jp", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<leader>jn", function() harpoon:list():next() end)
+
+-- basic telescope configuration
+-- local conf = require("telescope.config").values
+-- local function toggle_telescope(harpoon_files)
+--     local file_paths = {}
+--     for _, item in ipairs(harpoon_files.items) do
+--         table.insert(file_paths, item.value)
+--     end
+--
+--     require("telescope.pickers").new({}, {
+--         prompt_title = "Harpoon",
+--         finder = require("telescope.finders").new_table({
+--             results = file_paths,
+--         }),
+--         previewer = conf.file_previewer({}),
+--         sorter = conf.generic_sorter({}),
+--     }):find()
+-- end
+--
+-- vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
+--     { desc = "Open harpoon window" })
+--
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
