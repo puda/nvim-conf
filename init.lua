@@ -324,8 +324,16 @@ vim.keymap.set('n', '<leader>qq', vim.cmd.qall)
 vim.keymap.set('n', '<leader><Tab>', vim.cmd.bprevious)
 
 -- Vertigo
-vim.keymap.set('n', 'gj', '<Cmd>VertigoDown n<CR>', {silent = false})
-vim.keymap.set('n', 'gk', '<Cmd>VertigoUp n<CR>', {silent = false})
+vim.keymap.set('n', 'gj',
+  function()
+    vim.cmd.VertigoDown('n<CR>')
+    vim.api.nvim_feedkeys('zz', 'm', false)
+  end , {silent = false})
+vim.keymap.set('n', 'gk',
+  function()
+    vim.cmd.VertigoUp('n<CR>')
+    vim.api.nvim_feedkeys('zz', 'm', false)
+  end , {silent = false})
 
 -- Neotree
 vim.keymap.set('n', '<leader>pv', '<Cmd>Neotree<CR>', {silent = true})
@@ -536,7 +544,7 @@ local on_attach = function(_, bufnr)
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ji', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
   -- nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
