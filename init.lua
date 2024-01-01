@@ -309,6 +309,8 @@ vim.o.completeopt = 'menuone,noselect'
 -- [[ Basic Keymaps ]]
 
 vim.keymap.set('n', '<leader>w', '<C-w>')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
 
 -- [[ Puda maps ]]
 -- set jk to esc
