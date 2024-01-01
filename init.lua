@@ -65,11 +65,11 @@ require('lazy').setup({
     },
   },
 
-  {
-    'smoka7/hop.nvim',
-    version = "*",
-    opts = {},
-  },
+  -- {
+  --   'smoka7/hop.nvim',
+  --   version = "*",
+  --   opts = {},
+  -- },
 
   -- {
   --   'ggandor/leap.nvim',
@@ -640,20 +640,20 @@ require('neodev').setup()
 
 
 -- Hop setup
-local hop = require('hop')
-local directions = require('hop.hint').HintDirection
-vim.keymap.set('n', 'f', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-end, {remap=true})
-vim.keymap.set('n', 'F', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-end, {remap=true})
-vim.keymap.set('n', 't', function()
-  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-end, {remap=true})
-vim.keymap.set('n', 'T', function()
-  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-end, {remap=true})
+-- local hop = require('hop')
+-- local directions = require('hop.hint').HintDirection
+-- vim.keymap.set('n', 'f', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+-- end, {remap=true})
+-- vim.keymap.set('n', 'F', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+-- end, {remap=true})
+-- vim.keymap.set('n', 't', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+-- end, {remap=true})
+-- vim.keymap.set('n', 'T', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+-- end, {remap=true})
 
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
